@@ -11,34 +11,36 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(title: const Text('hello')),
-          body: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: double.infinity,
-              height: 50,
-              margin: const EdgeInsets.all(0),
-              padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                color: Colors.amberAccent,
-              ),
-              child: const Text('hello'),
+      appBar: AppBar(
+          centerTitle: false,
+          leading: const Icon(Icons.ad_units_rounded),
+          title: const Text(
+            'hello',
+          )),
+      body: SizedBox(
+        child: Row(
+          children: [
+            const Text(
+              'hello world',
+              style: TextStyle(
+                  color: Colors.redAccent,
+                  fontSize: 20,
+                  letterSpacing: 3,
+                  fontWeight: FontWeight.w700),
             ),
-          ),
-          bottomNavigationBar: BottomAppBar(
-            child: SizedBox(
-              height: 70,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(Icons.phone),
-                  Icon(Icons.message),
-                  Icon(Icons.contact_page),
-                ],
-              ),
+            TextButton(onPressed: () {}, child: const Text('button')),
+            // 구글 물 뺀 디자인 - Inkwell 효과삭제
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.amber),
+                  splashFactory: NoSplash.splashFactory),
+              child: const Text('ElevatedButton'),
             ),
-          ),
-        ));
+            IconButton(onPressed: () {}, icon: const Icon(Icons.safety_check))
+          ],
+        ),
+      ),
+    ));
   }
 }
