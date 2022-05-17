@@ -11,33 +11,48 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-          centerTitle: false,
-          leading: const Icon(Icons.ad_units_rounded),
-          title: const Text(
-            'hello',
-          )),
-      body: SizedBox(
+      appBar: AppBar(),
+      body: Container(
+        height: 150,
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            const Text(
-              'hello world',
-              style: TextStyle(
-                  color: Colors.redAccent,
-                  fontSize: 20,
-                  letterSpacing: 3,
-                  fontWeight: FontWeight.w700),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                // If image ratio is diff, define parent w/h and use fit fill(첨부한 이미지의 비율이 다를때)
+                height: 150,
+                width: 150,
+                child: Image.asset(
+                  'emart.jpg',
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-            TextButton(onPressed: () {}, child: const Text('button')),
-            // 구글 물 뺀 디자인 - Inkwell 효과삭제
-            ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.amber),
-                  splashFactory: NoSplash.splashFactory),
-              child: const Text('ElevatedButton'),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '허먼밀러 의자 팝니다',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const Text(
+                    '주월 1동',
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                  ),
+                  const Text(
+                    '7,000원',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [Icon(Icons.favorite), Text('4')],
+                  ), //Row
+                ],
+              ), //Column
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.safety_check))
           ],
         ),
       ),
