@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var name = ['google', 'facebook', 'apple'];
+  var likes = [0,0,0];
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +21,18 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(),
         body: ListView.builder(
-            itemCount: 30,
+            itemCount: name.length,
             itemBuilder: (c, i) {
-              print(i);
-              return const Card(
+              return Card(
                 child: ListTile(
-                  leading: Icon(Icons.person_off_rounded),
-                  title: Text('홍길동'),
+                  leading: Text(likes[i].toString()),
+                  title: Text(name[i]),
                   subtitle: Text('친한 친구'),
-                  trailing: Icon(Icons.more_vert),
+                  trailing: ElevatedButton(child: Text('좋아요'), onPressed: (){
+                    setState((){
+                      likes[i]++;
+                    });
+                  },)
                 ),
               );
             }),
