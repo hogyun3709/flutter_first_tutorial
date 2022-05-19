@@ -12,11 +12,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(),
-        body: ListView(
-          children: const [
-            Icon(Icons.person_off_rounded)
-          ],
-        ),
+        body: ListView.builder(
+            itemCount: 30,
+            itemBuilder: (c, i) {
+              print(i);
+              return const Card(
+                child: ListTile(
+                  leading: Icon(Icons.person_off_rounded),
+                  title: Text('홍길동'),
+                  subtitle: Text('친한 친구'),
+                  trailing: Icon(Icons.more_vert),
+                ),
+              );
+            }),
         bottomNavigationBar: const BottomNavigation(),
       ),
     );
@@ -43,4 +51,3 @@ class BottomNavigation extends StatelessWidget {
     );
   }
 }
-
