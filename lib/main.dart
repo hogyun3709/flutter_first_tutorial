@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -13,31 +13,40 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var name = ['google', 'facebook', 'apple'];
-  var likes = [0,0,0];
+  var likes = [0, 0, 0];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(),
-        body: ListView.builder(
-            itemCount: name.length,
-            itemBuilder: (c, i) {
-              return Card(
-                child: ListTile(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const Dialog(child: Text('안녕'));
+              });
+        },
+      ),
+      appBar: AppBar(),
+      body: ListView.builder(
+          itemCount: name.length,
+          itemBuilder: (c, i) {
+            return Card(
+              child: ListTile(
                   leading: Text(likes[i].toString()),
                   title: Text(name[i]),
-                  subtitle: Text('친한 친구'),
-                  trailing: ElevatedButton(child: Text('좋아요'), onPressed: (){
-                    setState((){
-                      likes[i]++;
-                    });
-                  },)
-                ),
-              );
-            }),
-        bottomNavigationBar: const BottomNavigation(),
-      ),
+                  subtitle: const Text('친한 친구'),
+                  trailing: ElevatedButton(
+                    child: const Text('좋아요'),
+                    onPressed: () {
+                      setState(() {
+                        likes[i]++;
+                      });
+                    },
+                  )),
+            );
+          }),
+      bottomNavigationBar: const BottomNavigation(),
     );
   }
 }
