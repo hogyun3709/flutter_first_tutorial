@@ -13,7 +13,20 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var name = ['google', 'facebook', 'apple'];
-  var likes = [0, 0, 0];
+  var total = 3;
+
+  addOne() {
+    setState(() {
+      total++;
+    });
+  }
+
+  addName(userInput) {
+    setState(() {
+      name.add(userInput);
+      total++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,30 +36,63 @@ class _MyAppState extends State<MyApp> {
           showDialog(
               context: context,
               builder: (context) {
-                return const Dialog(child: Text('안녕'));
+                return DialogUI(
+                  addOne: addOne,
+                  addName: addName,
+                );
               });
         },
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(total.toString()),
+      ),
       body: ListView.builder(
           itemCount: name.length,
           itemBuilder: (c, i) {
             return Card(
               child: ListTile(
-                  leading: Text(likes[i].toString()),
                   title: Text(name[i]),
-                  subtitle: const Text('친한 친구'),
-                  trailing: ElevatedButton(
-                    child: const Text('좋아요'),
-                    onPressed: () {
-                      setState(() {
-                        likes[i]++;
-                      });
-                    },
-                  )),
+              )
             );
           }),
       bottomNavigationBar: const BottomNavigation(),
+    );
+  }
+}
+
+class DialogUI extends StatelessWidget {
+  DialogUI({
+    Key? key,
+    required this.addOne,
+    required this.addName,
+  }) : super(key: key);
+  final Function addOne;
+  final Function addName;
+  var inputData = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        height: 300,
+        width: 300,
+        child: Column(
+          children: [
+            TextField(controller: inputData),
+            TextButton(
+                onPressed: () {
+                  addName(inputData.text);
+                },
+                child: Text('완료')),
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('취소')),
+          ],
+        ),
+      ),
     );
   }
 }
